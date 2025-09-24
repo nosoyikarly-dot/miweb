@@ -1,0 +1,280 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Kike 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(135deg, #1b1b1b, #2c2c2c);
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  transition: background 5s ease-in-out;
+}
+
+/* Contenedores */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Texto */
+h1 {
+  font-size: 1.9em;
+  line-height: 1.3em;
+  margin-bottom: 25px;
+  color: #ffb6f2;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #ff85d4;
+}
+
+/* Botones kawaii personalizados */
+button {
+  background: linear-gradient(135deg, #ff66cc, #ff85d4);
+  border: none;
+  padding: 16px 32px;
+  margin: 10px;
+  border-radius: 40px;
+  font-size: 1.2em;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 150px;
+  box-shadow: 0 6px 15px rgba(255,102,204,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Destellos y variaciones por botón */
+button::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1em;
+  opacity: 0.6;
+  animation: sparkle 1.5s infinite alternate;
+}
+
+/* Diferentes destellos por botón */
+button:nth-child(1)::after { content: '✨'; }
+button:nth-child(2)::after { content: '💀'; }
+button:nth-child(3)::after { content: '🌸'; }
+button:nth-child(4)::after { content: '⭐'; }
+button:nth-child(5)::after { content: '❄️'; }
+
+@keyframes sparkle {
+  from {opacity:0.6; transform:translateY(-50%) scale(1);}
+  to {opacity:1; transform:translateY(-50%) scale(1.3);}
+}
+
+button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(255,102,204,0.6);
+}
+
+/* Partículas flotantes */
+.particle {
+  position: absolute;
+  font-size: 12px;
+  opacity: 0.6;
+  animation: float 8s linear infinite;
+  pointer-events: none;
+  color: #d8b4ff;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh) rotate(0deg); }
+  to { transform: translateY(-10vh) rotate(360deg); }
+}
+
+/* Pantallas */
+.screen { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
+.active { display: flex; }
+
+/* Texto final animado por palabra */
+.typed-text { 
+  display: inline-block; 
+  white-space: pre-wrap;
+  font-size: 1.4em; 
+  line-height: 1.4em;
+}
+
+.keyphrase { 
+  color: #ff85d4; 
+  font-weight: bold; 
+  text-shadow: 0 0 8px #ff85d4;
+}
+</style>
+</head>
+<body>
+<!-- Pantalla 1 -->
+<div class="container screen active" id="screen1">
+  <h1>¿Te sientes raro porque te estás aburriendo de mí? 🥺</h1>
+  <div>
+    <button onclick="nextScreen(2)">Sí</button>
+    <button id="noBtn">No</button>
+  </div>
+</div>
+
+<!-- Pantalla 2 -->
+<div class="container screen" id="screen2">
+  <h1>¡Lo sabía 😭!<br>Pero te aguantas porque no pienso dejarte en paz nunca 💜</h1>
+  <h2>¿Sabes que te quiero muchísimo?</h2>
+  <div>
+    <button onclick="nextScreen(3)">Sí</button>
+    <button onclick="nextScreen(3)">Claro</button>
+    <button onclick="nextScreen(3)">Afirmativo</button>
+    <button onclick="nextScreen(3)">Por supuesto</button>
+    <button onclick="nextScreen(3)">Evidente</button>
+  </div>
+</div>
+
+<!-- Pantalla 3 -->
+<div class="container screen" id="screen3">
+  <h1 class="typed-text" id="typedText"></h1>
+</div>
+
+<script>
+function nextScreen(num) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen' + num).classList.add('active');
+
+  if (num === 3) {
+    startParticles();
+    startBackgroundAnimation();
+    typeText();
+  }
+}
+
+// Botón No que huye
+const noBtn = document.getElementById('noBtn');
+noBtn.addEventListener('touchstart', () => {
+  const x = Math.random() * (window.innerWidth - 160);
+  const y = Math.random() * (window.innerHeight - 80);
+  noBtn.style.position = 'absolute';
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
+});
+
+// Texto final con frases clave de color
+const finalMessage = [
+  "✨ Eres lo más <span class='keyphrase'>lindo</span> que tengo. 🌸\n\n",
+  "No me gusta verte <span class='keyphrase'>bajoneado</span>, ojalá pudiera estar ahí para ti 💀\n\n",
+  "Te quiero <span class='keyphrase'>muchísimo</span> y te mando muchos besitos ⭐\n\n",
+  "Todo esto es para decirte que te <span class='keyphrase'>extraño</span> demasiado y daría lo que fuera por abrazarte ahora mismo ✨"
+];
+
+// Efecto palabra por palabra respetando HTML
+function typeText() {
+  const el = document.getElementById('typedText');
+  el.innerHTML = "";
+  let phraseIndex = 0;
+
+  function typePhrase() {
+    if (phraseIndex >= finalMessage.length) return;
+
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = finalMessage[phraseIndex];
+    const nodes = Array.from(tempDiv.childNodes);
+    let nodeIndex = 0;
+
+    function typeNode() {
+      if (nodeIndex >= nodes.length) {
+        el.innerHTML += "\n\n";
+        phraseIndex++;
+        setTimeout(typePhrase, 500);
+        return;
+      }
+
+      const node = nodes[nodeIndex];
+      if (node.nodeType === Node.TEXT_NODE) {
+        const words = node.textContent.split(' ');
+        let wordIndex = 0;
+
+        function typeWord() {
+          if (wordIndex < words.length) {
+            el.innerHTML += words[wordIndex] + " ";
+            wordIndex++;
+            setTimeout(typeWord, 200);
+          } else {
+            nodeIndex++;
+            typeNode();
+          }
+        }
+        typeWord();
+      } else {
+        const spanText = node.outerHTML;
+        el.innerHTML += spanText + " ";
+        nodeIndex++;
+        setTimeout(typeNode, 200);
+      }
+    }
+    typeNode();
+  }
+
+  typePhrase();
+}
+
+// Partículas pantalla final y mini partículas al hacer clic
+let particleInterval;
+function startParticles() {
+  particleInterval = setInterval(() => {
+    const screen3 = document.getElementById('screen3');
+    if (!screen3.classList.contains('active')) return;
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    const symbols = ["✨","⭐","🌸","❄️","💀"];
+    particle.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+    particle.style.left = Math.random() * 100 + "vw";
+    particle.style.fontSize = (12 + Math.random() * 15) + "px";
+    particle.style.animationDuration = (5 + Math.random() * 5) + "s";
+    document.body.appendChild(particle);
+    setTimeout(() => particle.remove(), 10000);
+  }, 400);
+
+  // Mini partículas al hacer clic
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', e => {
+      for (let i=0;i<5;i++){
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        const symbols = ["✨","⭐","🌸","❄️","💀"];
+        p.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+        p.style.left = (e.clientX + (Math.random()*40-20)) + 'px';
+        p.style.top = (e.clientY + (Math.random()*40-20)) + 'px';
+        p.style.fontSize = (10 + Math.random()*12)+'px';
+        p.style.animationDuration = (1 + Math.random()*2)+'s';
+        document.body.appendChild(p);
+        setTimeout(()=>p.remove(),2000);
+      }
+    });
+  });
+}
+
+// Fondo dinámico pantalla final
+function startBackgroundAnimation() {
+  let hue = 0;
+  setInterval(() => {
+    hue = (hue + 0.2) % 360;
+    document.body.style.background = `linear-gradient(135deg, hsl(${hue}, 25%, 12%), hsl(${(hue+30)%360}, 30%, 18%))`;
+  }, 100);
+}
+</script>
+</body>
+</html>
